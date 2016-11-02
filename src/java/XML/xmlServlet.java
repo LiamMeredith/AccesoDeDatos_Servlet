@@ -11,6 +11,8 @@ import generated.Alumno;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -57,7 +59,7 @@ public class xmlServlet extends HttpServlet {
         while ((str = br.readLine()) != null) {
             sb.append(str);
         }
-        
+
         //Converts value to a suitable int that represents SQL index
         String name = sb.toString();
         name = name.replaceAll("\\D+", "");
@@ -68,7 +70,7 @@ public class xmlServlet extends HttpServlet {
             index = -1;
         }
         index++;
-        
+
         //Charges SQL information from the selected value
         tableAlumnos a = new tableAlumnos();
         String[][] asignaturas = null;
@@ -88,7 +90,7 @@ public class xmlServlet extends HttpServlet {
         //Set subjects
         Alumno.Asignaturas asign = new Alumno.Asignaturas();
         for (int con = 0; con < asignaturas.length; con++) {
-            asign.getAsignatura().add(asignaturas[con][1]);
+                asign.getAsignatura().add(asignaturas[con][1]);
         }
 
         //Set tutorials
@@ -103,11 +105,9 @@ public class xmlServlet extends HttpServlet {
         //Charges JAXB Parser
         JAXBinding jb = new JAXBinding();
 
-
-        response.setContentType("text/plain");
+        response.setContentType("text/xml");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("" + jb.objectToXml(al));
+        response.getWriter().write(jb.objectToXml(al));
 
     }
-
 }

@@ -64,8 +64,8 @@
                             }
                         }).then(function (response) {
                             console.log(response);
-                            $scope.message = response.data;
-                        }, function (response) {
+                            $scope.message = response.data; 
+                       }, function (response) {
                             //fail case
                             console.log(response);
                             $scope.message = response;

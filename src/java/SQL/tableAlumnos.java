@@ -160,9 +160,9 @@ public class tableAlumnos implements Table {
     }
 
     public String[][] getAsignaturas(String id) throws SQLException {
-        ResultSet rs = t.executeQuery("Select count(*) as counter from alumne inner join tutoriaalumne on alumne.codi = tutoriaalumne.codiAlumne inner join \n" +
+        ResultSet rs = t.executeQuery("Select count(DISTINCT assignatura.codi) as counter from alumne inner join tutoriaalumne on alumne.codi = tutoriaalumne.codiAlumne inner join \n" +
 "	tutoria on tutoria.codi = tutoriaalumne.codiTutoria inner join assignatura \n" +
-"    	on assignatura.codi = tutoria.codiAssignatura where alumne.codi = " + id + " group by assignatura.codi ;");
+"    	on assignatura.codi = tutoria.codiAssignatura where alumne.codi = " + id + "  ;");
         String[][] s;
         int size = 0;
         if (rs.next()) {
@@ -171,7 +171,7 @@ public class tableAlumnos implements Table {
         s = new String[size][3];
         rs = t.executeQuery("Select alumne.nom, assignatura.nom, tutoria.nom from alumne inner join tutoriaalumne on alumne.codi = tutoriaalumne.codiAlumne inner join \n" +
 "	tutoria on tutoria.codi = tutoriaalumne.codiTutoria inner join assignatura \n" +
-"    	on assignatura.codi = tutoria.codiAssignatura where alumne.codi = " + id + " group by assignatura.codi ;");
+"    	on assignatura.codi = tutoria.codiAssignatura where alumne.codi = " + id + " group by assignatura.nom;") ;
         String[] query = null;
         for (int i = 0; i < size && rs.next(); i++) {
             query = getQueryInnerJoin(rs);
@@ -183,9 +183,9 @@ public class tableAlumnos implements Table {
     }
     
         public String[][] getTutorias(String id) throws SQLException {
-        ResultSet rs = t.executeQuery("Select count(*) as counter from alumne inner join tutoriaalumne on alumne.codi = tutoriaalumne.codiAlumne inner join \n" +
+        ResultSet rs = t.executeQuery("Select count(DISTINCT tutoria.codi) as counter from alumne inner join tutoriaalumne on alumne.codi = tutoriaalumne.codiAlumne inner join \n" +
 "	tutoria on tutoria.codi = tutoriaalumne.codiTutoria inner join assignatura \n" +
-"    	on assignatura.codi = tutoria.codiAssignatura where alumne.codi = " + id + " group by tutoria.codi ;");
+"    	on assignatura.codi = tutoria.codiAssignatura where alumne.codi = " + id + " ;");
         String[][] s;
         int size = 0;
         if (rs.next()) {
@@ -194,7 +194,7 @@ public class tableAlumnos implements Table {
         s = new String[size][3];
         rs = t.executeQuery("Select alumne.nom, assignatura.nom, tutoria.nom from alumne inner join tutoriaalumne on alumne.codi = tutoriaalumne.codiAlumne inner join \n" +
 "	tutoria on tutoria.codi = tutoriaalumne.codiTutoria inner join assignatura \n" +
-"    	on assignatura.codi = tutoria.codiAssignatura where alumne.codi = " + id + " group by tutoria.codi ;");
+"    	on assignatura.codi = tutoria.codiAssignatura where alumne.codi = " + id + " group by tutoria.codi;");
         String[] query = null;
         for (int i = 0; i < size && rs.next(); i++) {
             query = getQueryInnerJoin(rs);

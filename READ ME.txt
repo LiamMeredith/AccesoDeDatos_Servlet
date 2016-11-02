@@ -1,0 +1,17 @@
+Java Servlet que recoge los alumnos de una base de datos local y devuelve a petición sus tutorías y asignaturas con json y xml. 
+
+index.jsp:
+
+Compuesto de 3 funciones: 1 función jquery y 2 funciones en angular. Las dos últimas opciones son en angular para hacer un display de la información de forma dinámica y asíncrona. 
+
+Primera función (Jquery):
+
+Realiza una petición GET a NewServlet (Servlet principal)  donde crea un objeto java que devuelve los alumnos de una base de datos local SQL. La información la envía al jsp como un objeto json. 
+
+Segunda función (Angular):
+
+Realiza una petición POST a NewServlet que devolverá las asignaturas y tutorías del alumno escogido. De nuevo utilizará el objeto java para poder hacer una petición SQL y enviará la información como json. 
+
+Tercera función (Angular):
+
+De forma paralela, cuando se realice la petición POST de la función anterior, hará otra petición a xmlServlet, que devolverá como texto plano la estructura xml del objeto escogido. Para poder parsear el objeto Alumno a un string xml, se hace uso de la tecnología JAXB. 
